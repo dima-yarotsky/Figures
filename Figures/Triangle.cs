@@ -21,25 +21,38 @@ namespace Figures
         }
         public override double getArea()
         {
-            if (SideA <= 0 || SideB <= 0 || SideC <= 0)
+            if (aboveZero(SideA, SideB, SideC))
             {
-                throw new TriangleException("Incorrect sides)");
+                throw new FigureException("Incorrect sides");
             }
-
-            if (SideA > (SideB + SideC) || SideB > (SideA + SideC) || SideC > (SideA + SideB))
+            if (correctTriangle(SideA, SideB, SideC))
             {
-                throw new TriangleException("Incorrect triangle");
+                throw new FigureException("Incorrect triangle");
             }
-
             double p = (SideA + SideB + SideC) / 2;
             return Math.Sqrt(p * (p - SideA) * (p - SideB) * (p - SideC));
         }
         public bool RightTriangle()
         {
-            bool isRightTriangle = (SideA == Math.Sqrt(Math.Pow(SideB, 2) + Math.Pow(SideC, 2))
-                               || SideB == Math.Sqrt(Math.Pow(SideA, 2) + Math.Pow(SideC, 2))
-                               || SideC == Math.Sqrt(Math.Pow(SideA, 2) + Math.Pow(SideB, 2)));
-            return isRightTriangle;
+            return (SideA == degreeSides(SideB, SideC)) || (SideB == degreeSides(SideA, SideC))
+                   || (SideC == degreeSides(SideB, SideA));
+
+        }
+        public double degreeSides(double x, double y)
+        {
+            return Math.Sqrt(Math.Pow(x, 2) + Math.Pow(y, 2));
+        }
+        public bool aboveZero(double sideA, double sideB, double sideC)
+        {
+            if (sideA > 0 && sideB > 0 && sideC > 0)
+                return false;
+            return true;
+        }
+        public bool correctTriangle(double sideA, double sideB, double sideC)
+        {
+            if (sideA > sideB + sideC || sideB > sideA + sideB || sideC > sideB + sideA)
+                return true;
+            return false;
         }
     }
 }

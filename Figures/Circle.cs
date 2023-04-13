@@ -9,18 +9,18 @@ namespace Figures
     public class Circle : Shape
     {
         public double Radius { get; set; }
-
-        public Circle(double Radius) {
+        private double pi = 3.14;
+        public Circle(double Radius)
+        {
             this.Radius = Radius;
         }
-
         public override double getArea()
         {
             if (Radius <= 0)
             {
-                throw new CircleException("Incorrect radius)");
+                throw new FigureException("Incorrect radius");
             }
-            return Radius * 2 * 3.14;
+            return Radius * 2 * pi;
         }
     }
 }

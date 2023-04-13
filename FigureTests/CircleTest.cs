@@ -13,5 +13,13 @@ namespace FigureTests
             double result = circle.getArea();
             Assert.AreEqual(expected, result);
         }
+        [TestMethod]
+        public void expectionRadius()
+        {
+            Circle circle = new Circle(0);
+            var getArea = Assert.ThrowsException<FigureException>(() => circle.getArea());
+            Assert.AreSame(getArea.Message, "Incorrect radius");
+
+        }
     }
 }
